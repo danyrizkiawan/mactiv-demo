@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import BaseLayout from './Components/basicES6/BaseLayout';
 import Activation from './Components/basicES6/Activation';
@@ -10,7 +10,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            isActivated: false,
+            isActivated: true,
             serialNumber: ['CSyn5tSKH5HMLH8bQ0FS', 'XLBvtdftWH7oGwGNmAjs', 'ChXiGf5Y6LCMG67lNfwT'],
             key: ['qGbfNNmNukoibRyjukXEr', '8pv0gcip20xUfvZf1n55', 'dB7y8XPlYNJUhSJ51w0q']
         }
@@ -18,11 +18,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.timerID = setInterval(() => {
-            if (!this.state.isActivated) 
-                this.checkStatus();
-            }
-        , 5000);
+        // this.timerID = setInterval(() => {
+        //     if (!this.state.isActivated)
+        //         this.checkStatus();
+        // }
+        //     , 5000);
     }
 
     componentWillUnmount() {
@@ -37,7 +37,7 @@ class App extends Component {
         }).then(res => {
             console.log(res);
             if (res.data.masjidId) {
-                this.setState({isActivated: true})
+                this.setState({ isActivated: true })
             }
         }).catch(err => {
             console.log("Serial Number Not Found");
@@ -45,14 +45,14 @@ class App extends Component {
     }
 
     render() {
-        const {isActivated, serialNumber, key} = this.state;
+        const { isActivated, serialNumber, key } = this.state;
         return (
             <div>
                 {isActivated
-                    ? <BaseLayout serialNumber = {
+                    ? <BaseLayout serialNumber={
                         serialNumber[0]
                     }
-                /> : <Activation serialNumber={key[0]} />
+                    /> : <Activation serialNumber={key[0]} />
                 }
             </div>
         )

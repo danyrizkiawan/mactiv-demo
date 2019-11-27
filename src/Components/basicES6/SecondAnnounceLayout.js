@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AnnounceBox from "./AnnounceBox";
 import PrayerTimes2 from "./PrayerTimes2";
 import Clock2 from "./Clock2";
+import AnnounceTitle from "./AnnounceTitle";
 
 const style = {
     rootStyle: {
@@ -9,7 +10,7 @@ const style = {
         left: '0px',
         top: '0px',
         zIndex: '100',
-        fontFamily: 'Proxima-SemiBold',
+        fontFamily: 'Philosopher-Bold',
         display: 'flex',
         flexDirection: 'column',
         padding: '50px',
@@ -42,54 +43,115 @@ const style = {
 }
 
 class SecondAnnounceLayout extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            index: 1
+        };
+
+    }
+
+    componentDidMount() {
+        // Get props
+        let { sequence } = this.props;
+        // Check if adzan sequence
+        if (sequence.adzan) {
+            // If true, play sequence
+            this.startSequence();
+
+            // Give delay to stop timer
+        } else {
+
+        }
+    }
+
+    startSequence() {
+        let { delay } = this.props;
+        var totalDelay = 0;
+        console.log("Start Timer");
+
+        this.setState({
+            index: 1
+        });
+
+        totalDelay = totalDelay + delay.praAdzan;
+        setTimeout(() => {
+            this.setState({
+                index: 2
+            });
+            console.log("Start Adzan");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.onAdzan;
+        setTimeout(() => {
+            this.setState({
+                index: 3
+            });
+            console.log("Start Iqamah");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.praIqamah;
+        setTimeout(() => {
+            this.setState({
+                index: 4
+            });
+            console.log("Start Shalat");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.shalatDuration;
+        setTimeout(() => {
+            this.setState({
+                index: 5
+            });
+            console.log("End Sequence");
+        }, totalDelay);
+    }
+
 
     render() {
-        const prayer = this.props.prayer;
+        const { prayer, delay } = this.props;
         return (
             <div
                 className="text-center"
                 style={style.rootStyle}
             >
-                <h1
-                    style={style.h1Style}
-                >
-                    MASJID AL-HIDAYAH BOGOR
-                </h1>
+                <AnnounceTitle index={this.state.index} delay={delay} />
                 <div
-                    className="my-5" 
-                    style={{height: '575px'}}>
+                    className="my-5"
+                    style={{ height: '575px' }}>
                     <AnnounceBox />
                 </div>
                 <div
-                    className="row text-center d-flex justify-content-around align-middle"
+                    className="row text-center d-flex justify-content-between align-middle"
                     style={style.boxStyle}>
-                        <div className="col-8 my-auto" >
-                            <div className="row d-flex justify-content-between">
-                                <PrayerTimes2
-                                    title="Shubuh"
-                                    time={prayer[0]}
-                                    />
-                                <PrayerTimes2
-                                    title="Dzuhur"
-                                    time={prayer[2]}
-                                    />
-                                <PrayerTimes2
-                                    title="Ashar"
-                                    time={prayer[3]}
-                                    />
-                                <PrayerTimes2
-                                    title="Maghrib"
-                                    time={prayer[4]}
-                                    />
-                                <PrayerTimes2
-                                    title="Isya'"
-                                    time={prayer[5]}
-                                    />
-                            </div>
+                    <div className="col-md-9 my-auto" >
+                        <div className="row d-flex justify-content-around">
+                            <PrayerTimes2
+                                title="Shubuh"
+                                time={prayer[0]}
+                            />
+                            <PrayerTimes2
+                                title="Dzuhur"
+                                time={prayer[2]}
+                            />
+                            <PrayerTimes2
+                                title="Ashar"
+                                time={prayer[3]}
+                            />
+                            <PrayerTimes2
+                                title="Maghrib"
+                                time={prayer[4]}
+                            />
+                            <PrayerTimes2
+                                title="Isya'"
+                                time={prayer[5]}
+                            />
                         </div>
-                        <div className="col-3 p-0 my-auto" style={style.line} >
-                                <Clock2 />
-                        </div>
+                    </div>
+                    <div className="col-md-3 p-0 my-auto" style={style.line} >
+                        <Clock2 />
+                    </div>
                 </div>
             </div>
         );

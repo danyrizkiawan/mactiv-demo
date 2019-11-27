@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 
 const clockStyle = {
     rootStyle: {
-        fontFamily: 'Proxima-Regular',
+        fontFamily: 'Philosopher-Bold',
         color: 'white',
         margin: '0',
         padding: '0',
     },
     h1Style: {
-        fontFamily: 'Proxima-SemiBold',
         fontSize: '110px',
         lineHeight: '0.7',
         letterSpacing: '-6px',
@@ -125,7 +124,7 @@ class Clock2 extends Component {
                 <h2
                     style={clockStyle.h2Style} >
                     {this.convertDay(date.getDay())},
-                    {' ' + this.addZero(date.getDate())} {this.convertMonth(date.getMonth()+1)} {date.getFullYear()}
+                    {' ' + this.addZero(date.getDate())} {this.convertMonth(date.getMonth() + 1)} {date.getFullYear()}
                 </h2>
             </div>
         );

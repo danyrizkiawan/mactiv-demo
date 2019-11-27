@@ -3,7 +3,6 @@ import Clock from './Clock';
 import PrayerTimes from './PrayerTimes';
 import Timer from './Timer';
 import Background from '../../Images/bg.png';
-import Axios from "axios";
 
 import {
     Row
@@ -15,7 +14,7 @@ var layoutStyle = {
         width: '100%',
         height: '100vh',
         backgroundImage: `url(${Background})`
-    }, 
+    },
     leftStyle: {
         width: '633px',
         height: '250px',
@@ -40,7 +39,7 @@ class SecondLayout extends Component {
 
     constructor(props) {
         super(props);
-        
+
     }
 
     render() {

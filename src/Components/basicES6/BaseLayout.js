@@ -1,16 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SecondLayout from './SecondLayout';
 import SecondAnnounceLayout from './SecondAnnounceLayout';
 import Axios from 'axios';
-
-const style = {
-    front: {
-        position: 'absolute',
-        left: '0px',
-        top: '0px',
-        zIndex: '100'
-    }
-}
 
 class BaseLayout extends Component {
 
@@ -18,7 +9,18 @@ class BaseLayout extends Component {
         super(props);
 
         this.state = {
-            announce: true,
+            announce: false,
+            sequence: {
+                normal: false,
+                adzan: false
+            },
+            delay: {
+                normal: 15000,
+                praAdzan: 300000,
+                onAdzan: 180000,
+                praIqamah: 120000,
+                shalatDuration: 600000
+            },
             prayer: [
                 "00:00",
                 "00:00",
@@ -28,17 +30,16 @@ class BaseLayout extends Component {
                 "00:00"
             ]
         }
-
     }
 
     componentDidMount() {
         this.getPrayerTime();
         this.timerID2 = setInterval(() => {
             this.getPrayerTime();
-        }, 3600000);
+        }, 7200000);
         this.timerID = setInterval(
             () => this.showInterrupt()
-            , 120000
+            , 135000
         );
     }
 
@@ -80,27 +81,57 @@ class BaseLayout extends Component {
     }
 
     showInterrupt() {
-        this.setState(prevState => ({
-            announce: !prevState.announce
-        }))
+        let { sequence, delay } = this.state;
+        var ptDuration = delay.praAdzan + delay.onAdzan + delay.praIqamah + delay.shalatDuration;
 
-        setTimeout(() => {
-            this.setState(prevState => ({
-                announce: !prevState.announce
-            }))
-        }, 15000);
+
+        if (sequence.normal) {
+            console.log("Normal loop");
+            this.setState({
+                announce: true
+            })
+
+            setTimeout(() => {
+                this.setState({
+                    announce: false
+                })
+            }, delay.normal);
+        } else {
+            if (sequence.adzan === false) {
+                console.log("Start Adzan loop");
+                this.setState({
+                    announce: true,
+                    sequence: {
+                        normal: false,
+                        adzan: true
+                    }
+                })
+                setTimeout(() => {
+                    this.setState({
+                        announce: false,
+                        sequence: {
+                            normal: true,
+                            adzan: false
+                        }
+                    })
+                    console.log("Stop Adzan loop");
+                }, ptDuration);
+            } else {
+                console.log("In Adzan loop");
+            }
+        }
     }
 
     render() {
         let message;
-        const serialNumber = this.props.serialNumber;
-        if (this.state.announce) {
-            message = <SecondAnnounceLayout prayer={this.state.prayer}/>
+        let { announce, prayer, sequence, delay } = this.state;
+        if (announce) {
+            message = <SecondAnnounceLayout prayer={prayer} sequence={sequence} delay={delay} />
         }
         return (
             <div>
                 {message}
-                <SecondLayout prayer={this.state.prayer} />
+                <SecondLayout prayer={prayer} />
             </div>
         )
     }
