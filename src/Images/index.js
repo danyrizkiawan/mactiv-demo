@@ -1,0 +1,8 @@
+export const SmokeAlert = require('./smoke.png')
+export const ChildAlert = require('./child.png')
+export const MuteAlert = require('./mute.png')
+export const HandBagAlert = require('./hand-bag.png')
+export const JamaahAlert = require('./islamic-friday-prayer.png')
+export const PhoneAlert = require('./no-phones.png')
+export const BinAlert = require('./use-bin-sign.png')
+export const AuratAlert = require('./woman.png')

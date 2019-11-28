@@ -39,6 +39,10 @@ const style = {
         color: 'white',
         textShadow: '4px 4px 15px rgba(0, 0, 0, 0.5)',
         margin: '0',
+    },
+    font: {
+        h1: '80px',
+        h2: '60px',
     }
 }
 
@@ -47,7 +51,7 @@ class SecondAnnounceLayout extends Component {
         super(props);
 
         this.state = {
-            index: 1
+            index: 0
         };
 
     }
@@ -59,16 +63,14 @@ class SecondAnnounceLayout extends Component {
         if (sequence.adzan) {
             // If true, play sequence
             this.startSequence();
-
-            // Give delay to stop timer
-        } else {
-
         }
     }
 
     startSequence() {
         let { delay } = this.props;
-        var totalDelay = 0;
+        let totalDelay = 0;
+        const adzanAlert = new Audio("http://localhost:3000/Audios/adzan.wav");
+        const iqamahAlert = new Audio("http://localhost:3000/Audios/iqamah.wav");
         console.log("Start Timer");
 
         this.setState({
@@ -76,19 +78,21 @@ class SecondAnnounceLayout extends Component {
         });
 
         totalDelay = totalDelay + delay.praAdzan;
+
         setTimeout(() => {
             this.setState({
                 index: 2
             });
+            adzanAlert.play();
             console.log("Start Adzan");
         }, totalDelay);
 
-        totalDelay = totalDelay + delay.onAdzan;
+        totalDelay = totalDelay + delay.durasiAdzan;
         setTimeout(() => {
             this.setState({
                 index: 3
             });
-            console.log("Start Iqamah");
+            console.log("Start Timer Iqamah");
         }, totalDelay);
 
         totalDelay = totalDelay + delay.praIqamah;
@@ -96,10 +100,11 @@ class SecondAnnounceLayout extends Component {
             this.setState({
                 index: 4
             });
+            iqamahAlert.play();
             console.log("Start Shalat");
         }, totalDelay);
 
-        totalDelay = totalDelay + delay.shalatDuration;
+        totalDelay = totalDelay + delay.waktuSholat;
         setTimeout(() => {
             this.setState({
                 index: 5
@@ -110,13 +115,13 @@ class SecondAnnounceLayout extends Component {
 
 
     render() {
-        const { prayer, delay } = this.props;
+        const { prayer, delay, masjid } = this.props;
         return (
             <div
                 className="text-center"
                 style={style.rootStyle}
             >
-                <AnnounceTitle index={this.state.index} delay={delay} />
+                <AnnounceTitle index={this.state.index} delay={delay} masjid={masjid} />
                 <div
                     className="my-5"
                     style={{ height: '575px' }}>
@@ -130,22 +135,28 @@ class SecondAnnounceLayout extends Component {
                             <PrayerTimes2
                                 title="Shubuh"
                                 time={prayer[0]}
+                                size={style.font}
                             />
                             <PrayerTimes2
                                 title="Dzuhur"
                                 time={prayer[2]}
+                                size={style.font}
+
                             />
                             <PrayerTimes2
                                 title="Ashar"
                                 time={prayer[3]}
+                                size={style.font}
                             />
                             <PrayerTimes2
                                 title="Maghrib"
                                 time={prayer[4]}
+                                size={style.font}
                             />
                             <PrayerTimes2
                                 title="Isya'"
                                 time={prayer[5]}
+                                size={style.font}
                             />
                         </div>
                     </div>

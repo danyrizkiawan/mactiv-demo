@@ -23,7 +23,6 @@ class Timer2 extends Component {
         super(props);
         this.state = {
             now: 0,
-
         };
     }
 
@@ -67,7 +66,7 @@ class Timer2 extends Component {
 
         if (minutes < 10) { minutes = "0" + minutes; }
         if (seconds < 10) { seconds = "0" + seconds; }
-        return minutes + ':' + seconds;
+        return '-' + minutes + ':' + seconds;
     }
 
     addZero(number) {
@@ -83,7 +82,7 @@ class Timer2 extends Component {
         const { timer } = this.state;
         return (
             <div>
-                <h1 style={style.h1Style}>{text}</h1> <h2 style={style.h2Style}>-{timer}</h2>
+                <h1 style={style.h1Style}>{text}</h1> <h2 style={style.h2Style}>{timer}</h2>
             </div>
         );
     }

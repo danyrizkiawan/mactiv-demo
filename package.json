@@ -11,6 +11,7 @@
     "react-loading": "^2.0.3",
     "react-lottie": "^1.2.3",
     "react-scripts": "3.2.0",
+    "react-user-avatar": "^1.10.0",
     "reactstrap": "^8.1.1"
   },
   "scripts": {

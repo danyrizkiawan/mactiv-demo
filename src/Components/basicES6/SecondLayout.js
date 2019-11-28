@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import Clock from './Clock';
-import PrayerTimes from './PrayerTimes';
+import Clock2 from './Clock2';
+import PrayerTimes2 from './PrayerTimes2';
+import UserAvatar from 'react-user-avatar';
 import Timer from './Timer';
 import Background from '../../Images/bg.png';
+import Logo from '../../Images/logo.png';
 
 import {
     Row
@@ -13,26 +15,45 @@ var layoutStyle = {
         padding: '100px',
         width: '100%',
         height: '100vh',
-        backgroundImage: `url(${Background})`
+        background: 'linear-gradient(to bottom, #1E3860, #101F33)',
     },
-    leftStyle: {
-        width: '633px',
-        height: '250px',
+    topStyle: {
+        // width: '633px',
         marginRight: '77px',
-        padding: '0'
+        padding: '0',
+        color: 'white',
     },
-    verseStyle: {
-        height: '265px',
-        fontFamily: 'Mont-Regular',
-        fontSize: '2.8rem',
-        color: 'white'
+    rightStyle: {
+        // width: '440px',
+        // height: '20px',
+        padding: '0',
+        // marginLeft: '560px',
+    },
+    h2Style: {
+        fontFamily: 'Philoshoper-Bold',
+        fontSize: '40px',
+        lineHeight: '.8',
+        color: 'white',
+        margin: '0',
+        paddingTop: '0.5rem',
+    },
+    h1Style: {
+        fontFamily: 'Philoshoper-Bold',
+        fontSize: '60px',
+        letterSpacing: '0px',
+        lineHeight: '1',
+        color: '#F3D689',
+        margin: '0',
     },
     prayerStyle: {
-        width: '440px',
-        marginLeft: '65px',
-        marginBottom: '65px',
-        marginRight: '0',
         padding: '0'
+    },
+    lineStyle: {
+        border: '1px solid white',
+    },
+    font: {
+        h1: '180px',
+        h2: '120px',
     }
 }
 class SecondLayout extends Component {
@@ -43,82 +64,84 @@ class SecondLayout extends Component {
     }
 
     render() {
-        const prayer = this.props.prayer;
+        const { prayer, masjid } = this.props;
         return (
             <div className="" style={layoutStyle.rootStyle}>
                 <Row>
-                    <div
+                    {/* <div
                         className="my-auto"
-                        style={layoutStyle.leftStyle}
-                    >
-                        <Clock />
+                        style={layoutStyle.topStyle}
+                    > */}
+
+                    <div className="col-md-1 text-center">
+                        <UserAvatar size="110" name="Masjid" color="#FFF"
+                        //src={Logo}
+                        />
                     </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
+                    <div className="col-md-8 text-left">
+                        <h1 style={layoutStyle.h1Style}>{masjid.name}</h1>
+                        <h2 style={layoutStyle.h2Style}>{masjid.address}</h2>
+                    </div>
+                    <div className="col-md-3 pull-right">
+                        <Clock2 />
+                    </div>
+                    {/* </div> */}
+                </Row>
+                <div>
+                    <hr style={layoutStyle.lineStyle}>
+                    </hr>
+                </div>
+                <Row className="my-5 justify-content-between">
+                    <div className="col-md-4">
+                        <PrayerTimes2
                             title="Shubuh"
                             time={prayer[0]}
-                            start="#ff3662"
-                            end="#ff9daf"
+                            size={layoutStyle.font}
                         />
                     </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
-                            title="Syuruq"
+                    <div className="col-md-4">
+                        <PrayerTimes2
+                            title="Shuruq"
                             time={prayer[1]}
-                            start="#ffac15"
-                            end="#fffe50"
+                            size={layoutStyle.font}
                         />
                     </div>
-                </Row>
-                <Row>
-                    <div style={layoutStyle.leftStyle}>
-                        <p style={layoutStyle.verseStyle}>
-                            "Sesungguhnya shalat itu<br></br>
-                            mencegah dari perbuatan<br></br>
-                            keji dan mungkar."
-                            <br></br>
-                            <b>(QS. Al'Ankabut[29]:45)</b>
-                        </p>
-                    </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
+                    <div className="col-md-4">
+                        <PrayerTimes2
                             title="Dzuhur"
                             time={prayer[2]}
-                            start="#1ed6b4"
-                            end="#8bf3dc"
-                        />
-                    </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
-                            title="Ashar"
-                            time={prayer[3]}
-                            start="#0bc2e4"
-                            end="#7be3fc"
+                            size={layoutStyle.font}
                         />
                     </div>
                 </Row>
-                <Row>
-                    <div style={layoutStyle.leftStyle}>
-                        <Timer
-                            prayer={prayer}
-                            start="#b9e6f9"
-                            end="#5bb3fd"
+                <Row className="my-5 justify-content-between">
+                    <div className="col-md-4">
+                        <PrayerTimes2
+                            title="Ashar"
+                            time={prayer[3]}
+                            size={layoutStyle.font}
                         />
                     </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
+
+                    {/* <div style={layoutStyle.leftStyle}>
+                        <Timer
+                        prayer={prayer}
+                        start="#b9e6f9"
+                        end="#5bb3fd"
+                        />
+                    </div> */}
+                    <div className="col-md-4">
+                        <PrayerTimes2
                             title="Maghrib"
                             time={prayer[4]}
-                            start="#4977e7"
-                            end="#74caf9"
+                            size={layoutStyle.font}
                         />
                     </div>
-                    <div style={layoutStyle.prayerStyle}>
-                        <PrayerTimes
+                    <div className="col-md-4">
+                        <PrayerTimes2
                             title="Isya'"
                             time={prayer[5]}
-                            start="#c766f1"
-                            end="#78cbff"
+                            size={layoutStyle.font}
                         />
                     </div>
                 </Row>
