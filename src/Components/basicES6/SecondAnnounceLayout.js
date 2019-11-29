@@ -17,7 +17,6 @@ const style = {
         width: '100%',
         height: '100vh',
         background: 'linear-gradient(to bottom, #1E3860, #101F33)',
-
     },
     boxStyle: {
         height: '150px',
@@ -43,7 +42,16 @@ const style = {
     font: {
         h1: '80px',
         h2: '60px',
-    }
+    },
+    blank: {
+        position: 'absolute',
+        left: '0px',
+        top: '0px',
+        zIndex: '101',
+        width: '100%',
+        height: '100vh',
+        background: 'linear-gradient(to bottom, #1E3860, #101F33)',
+    },
 }
 
 class SecondAnnounceLayout extends Component {
@@ -51,17 +59,21 @@ class SecondAnnounceLayout extends Component {
         super(props);
 
         this.state = {
-            index: 0
+            index: 0,
+            display: false,
+            start: null,
+            delay: null
         };
-
     }
 
     componentDidMount() {
-        // Get props
-        let { sequence } = this.props;
-        // Check if adzan sequence
-        if (sequence.adzan) {
-            // If true, play sequence
+        if (this.props.sequence.adzan === true) {
+            this.startSequence();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.sequence.adzan !== prevProps.sequence.adzan && this.props.sequence.adzan !== false) {
             this.startSequence();
         }
     }
@@ -69,8 +81,8 @@ class SecondAnnounceLayout extends Component {
     startSequence() {
         let { delay } = this.props;
         let totalDelay = 0;
-        const adzanAlert = new Audio("http://localhost:3000/Audios/adzan.wav");
-        const iqamahAlert = new Audio("http://localhost:3000/Audios/iqamah.wav");
+        const adzanAlert = new Audio("http://localhost:3000/Audios/adzan.mp3");
+        const iqamahAlert = new Audio("http://localhost:3000/Audios/iqamah.mp3");
         console.log("Start Timer");
 
         this.setState({
@@ -107,21 +119,24 @@ class SecondAnnounceLayout extends Component {
         totalDelay = totalDelay + delay.waktuSholat;
         setTimeout(() => {
             this.setState({
-                index: 5
+                index: 0
             });
             console.log("End Sequence");
         }, totalDelay);
     }
-
-
     render() {
-        const { prayer, delay, masjid } = this.props;
+        const { prayer, delay, masjid, next, sequence } = this.props;
+        let blank;
+        if (sequence.adzan === true && this.state.index === 4) {
+            blank = <div style={style.blank}></div>
+        }
         return (
             <div
                 className="text-center"
                 style={style.rootStyle}
             >
-                <AnnounceTitle index={this.state.index} delay={delay} masjid={masjid} />
+                {blank}
+                <AnnounceTitle index={this.state.index} delay={delay} masjid={masjid} next={next} blank={this.blank} />
                 <div
                     className="my-5"
                     style={{ height: '575px' }}>

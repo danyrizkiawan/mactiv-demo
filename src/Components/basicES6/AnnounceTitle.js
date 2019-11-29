@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Timer2 from './Timer2';
+import Timer3 from './Timer3';
 
 var style = {
     h1Style: {
@@ -33,10 +33,10 @@ class AnnounceTitle extends Component {
                 "ISYA'"
             ]
         }
-
     }
+
     render() {
-        const { index, delay, masjid } = this.props;
+        const { index, delay, masjid, next } = this.props;
         const { nextPrayer } = this.state;
         let content;
         switch (index) {
@@ -44,16 +44,13 @@ class AnnounceTitle extends Component {
                 content = <div><h1 style={style.h1Style}>{masjid.name}</h1></div>
                 break;
             case 1:
-                content = <Timer2 text={"NEXT: " + nextPrayer[2]} duration={delay.praAdzan} />
+                content = <Timer3 text={"NEXT: " + nextPrayer[next]} duration={delay.praAdzan} />
                 break;
             case 2:
                 content = <div><h1 style={style.h1Style}>ADZAN</h1></div>
                 break;
             case 3:
-                content = <Timer2 text={"IQAMAH"} duration={delay.praIqamah} />
-                break;
-            case 4:
-                content = <div><h1 style={style.h1Style}>SHALAT</h1></div>
+                content = <Timer3 text={"IQAMAH"} duration={delay.praIqamah} />
                 break;
             default:
                 break;

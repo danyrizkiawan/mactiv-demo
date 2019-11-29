@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import Clock2 from './Clock2';
 import PrayerTimes2 from './PrayerTimes2';
 import UserAvatar from 'react-user-avatar';
-import Timer from './Timer';
-import Background from '../../Images/bg.png';
-import Logo from '../../Images/logo.png';
+// import Logo from '../../Images/logo.png';
 
 import {
     Row
 } from 'reactstrap';
+import Timer2 from './Timer2';
 
 var layoutStyle = {
     rootStyle: {
@@ -58,10 +57,6 @@ var layoutStyle = {
 }
 class SecondLayout extends Component {
 
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         const { prayer, masjid } = this.props;
@@ -123,13 +118,16 @@ class SecondLayout extends Component {
                         />
                     </div>
 
-                    {/* <div style={layoutStyle.leftStyle}>
-                        <Timer
-                        prayer={prayer}
-                        start="#b9e6f9"
-                        end="#5bb3fd"
+                    <div className="d-none">
+                        <Timer2
+                            prayer={prayer}
+                            start="#b9e6f9"
+                            end="#5bb3fd"
+                            callSequence={this.props.callSequence}
+                            updateIndex={this.props.updateIndex}
+                            treshold={this.props.treshold}
                         />
-                    </div> */}
+                    </div>
                     <div className="col-md-4">
                         <PrayerTimes2
                             title="Maghrib"

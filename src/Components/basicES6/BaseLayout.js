@@ -14,13 +14,18 @@ class BaseLayout extends Component {
                 address: '',
                 icon: ''
             },
-            announce: false,
             sequence: {
+                announce: false,
                 normal: true, // change this value to true, for normal sequence
                 adzan: false
             },
             delay: {
                 normal: 15000,
+                treshold: 300000,
+                praAdzan: 300000,
+                durasiAdzan: 180000,
+                praIqamah: 300000,
+                waktuSholat: 600000,
             },
             prayer: [
                 "00:00",
@@ -42,7 +47,7 @@ class BaseLayout extends Component {
         }, 7200000);
         this.timerID = setInterval(
             () => this.showInterrupt()
-            , 13500
+            , 135000
         );
     }
 
@@ -60,10 +65,6 @@ class BaseLayout extends Component {
 
     getPrayerTime() {
         Axios.get('http://localhost:5000/getPrayerTime')
-            // Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/getPrayerTime',
-            //     {
-            //         serialNumber
-            //     })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
@@ -92,6 +93,8 @@ class BaseLayout extends Component {
                     const result = res.data;
                     this.setState({
                         delay: {
+                            normal: 15000,
+                            treshold: result.praAdzan * 1000,
                             praAdzan: result.praAdzan * 1000,
                             durasiAdzan: result.durasiAdzan * 1000,
                             praIqamah: result.praIqamah * 1000,
@@ -105,6 +108,7 @@ class BaseLayout extends Component {
                 console.log(err);
             })
     }
+
     getMasjid() {
         Axios.get('http://localhost:5000/getDataMasjid')
             .then(res => {
@@ -119,7 +123,6 @@ class BaseLayout extends Component {
                         },
                     })
                 }
-
             }).catch(err => {
                 console.log(err);
             })
@@ -127,56 +130,89 @@ class BaseLayout extends Component {
 
     showInterrupt() {
         let { sequence, delay } = this.state;
-        var ptDuration = delay.praAdzan + delay.durasiAdzan + delay.praIqamah + delay.waktuSholat;
-
-
         if (sequence.normal) {
             console.log("Normal loop");
             this.setState({
-                announce: true
+                sequence: {
+                    announce: true,
+                    normal: true,
+                    adzan: false
+                }
             })
 
             setTimeout(() => {
                 this.setState({
-                    announce: false
+                    sequence: {
+                        announce: false,
+                        normal: true,
+                        adzan: false
+                    }
                 })
             }, delay.normal);
         } else {
-            if (sequence.adzan === false) {
-                console.log("Start Adzan loop");
-                this.setState({
-                    announce: true,
-                    sequence: {
-                        normal: false,
-                        adzan: true
-                    }
-                })
-                setTimeout(() => {
-                    this.setState({
-                        announce: false,
-                        sequence: {
-                            normal: true,
-                            adzan: false
-                        }
-                    })
-                    console.log("Stop Adzan loop");
-                }, ptDuration);
-            } else {
+            if (sequence.adzan === true) {
                 console.log("In Adzan loop");
+            } else {
             }
         }
     }
 
+    callSequence = (delta) => {
+        let { sequence, delay } = this.state;
+        var ptDuration = delay.praAdzan + delay.durasiAdzan + delay.praIqamah + delay.waktuSholat;
+        if (sequence.adzan === false) {
+            console.log("Start Adzan loop");
+            this.setState({
+                delay: {
+                    normal: 15000,
+                    treshold: delay.treshold,
+                    praAdzan: delta * 1000,
+                    durasiAdzan: delay.durasiAdzan,
+                    praIqamah: delay.praIqamah,
+                    waktuSholat: delay.waktuSholat,
+                },
+            })
+            this.setState({
+                sequence: {
+                    announce: true,
+                    normal: false,
+                    adzan: true
+                }
+            })
+            setTimeout(() => {
+                this.setState({
+                    sequence: {
+                        announce: false,
+                        normal: true,
+                        adzan: false
+                    }
+                })
+                console.log("Stop Adzan loop");
+            }, ptDuration);
+        }
+    }
+
+    updateIndex = (index) => {
+        this.setState({
+            nextPrayerIndex: index
+        })
+    }
+
+
     render() {
         let message;
-        let { announce, prayer, sequence, delay, masjid } = this.state;
-        if (announce) {
-            message = <SecondAnnounceLayout prayer={prayer} sequence={sequence} delay={delay} masjid={masjid} />
+        let { prayer, sequence, delay, masjid, nextPrayerIndex } = this.state;
+        if (sequence.announce) {
+            message = '';
+        } else {
+            message = 'd-none';
         }
         return (
             <div>
-                {message}
-                <SecondLayout prayer={prayer} masjid={masjid} />
+                <div className={message}>
+                    <SecondAnnounceLayout prayer={prayer} sequence={sequence} delay={delay} masjid={masjid} next={nextPrayerIndex} />
+                </div>
+                <SecondLayout prayer={prayer} masjid={masjid} treshold={delay.treshold} callSequence={this.callSequence} updateIndex={this.updateIndex} />
             </div>
         )
     }

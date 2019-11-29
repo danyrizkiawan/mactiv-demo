@@ -1,38 +1,25 @@
 import React, { Component } from 'react';
-
-var style = {
-    h1Style: {
-        display: 'inline',
-        fontSize: '100px',
-        color: '#F3D689',
-        margin: '0',
-        // textShadow: '4px 4px 15px rgba(0, 0, 0, 0.5)',
-    },
-    h2Style: {
-        display: 'inline',
-        color: 'white',
-        fontFamily: 'Philosopher-BoldItalic',
-        fontSize: '100px',
-        margin: '0',
-        marginLeft: '50px',
-    },
-}
+import PrayerTimes from './PrayerTimes';
 
 class Timer2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            timer: '00:00:00',
             now: 0,
+            nextPrayerIndex: 0,
+            nextPrayer: [
+                'Shubuh',
+                'Syuruq',
+                'Dzuhur',
+                'Ashar',
+                'Maghrib',
+                "Isya'"
+            ]
         };
     }
 
     componentDidMount() {
-        // Get Duration
-        let duration = this.props.duration / 1000;
-        this.setState({
-            now: duration
-        })
-
         this.timerID = setInterval(
             () => this.tick(),
             1000
@@ -44,29 +31,99 @@ class Timer2 extends Component {
     }
 
     tick() {
-        // Get current timer value
-        let now = this.state.now;
+        // Get current time
+        const hour = new Date().getHours();
+        const minute = new Date().getMinutes();
+        const second = new Date().getSeconds();
 
-        now = now - 1;
+        // Convert current time to second
+        const now = this.convertToSecond(hour, minute, second);
+
+        // Get prayer times
+        const prayers = this.props.prayer;
+        const newPrayers = [];
+        prayers.forEach((prayer) => {
+            // Convert prayer times to second
+            newPrayers.push(this.convertPrayerTime(prayer));
+        });
+
+        // Check next prayertimes
+        var nextPrayerIndex = 0;
+        for (let index = 0; index < newPrayers.length; index++) {
+            if (now < newPrayers[index]) {
+                nextPrayerIndex = index;
+                break;
+            }
+        }
 
         // Save all to state
         this.setState({
+            nextPrayerIndex,
             now,
+            prayer: newPrayers
         });
+
+        if (newPrayers[0] !== '0')
+            this.setTimer();
+    }
+
+    setTimer() {
+        // get state
+        var { nextPrayerIndex,
+            now,
+            prayer
+        } = this.state;
+
+        var treshold = this.props.treshold / 1000;
+
+        // calculate delta
+        var delta = prayer[nextPrayerIndex] - now;
+        if (delta < 0) {
+            delta = this.convertToSecond(24, 0, 0) - now + prayer[nextPrayerIndex];
+        }
+
+        // Kalo mau nyoba jalanin sequence adzan, lakukan langkah berikut:
+        // 1) Cari tahu nilai delta dengan --> Uncomment console.log(delta) --> save untuk refresh web
+        // 2) Cari tahu delay praAdzan
+        // 3) Kurangi delta dengan X agar nilai akhir delta = Y lebih besar nilai praAdzan
+        // 4) Y merupakan waktu tunggu sebelum sequence dimulai, dapat diubah sesuai keinginan
+        // 5) Uncomment delta --> save untuk refresh web
+        //
+        // delta = delta - X; // (a)
+        // console.log(delta); // (b)
+        if (delta <= treshold && delta > 0) {
+            this.props.callSequence(delta);
+        }
+
+        this.props.updateIndex(nextPrayerIndex);
 
         // Convert delta to time format and save to state
         this.setState({
-            timer: this.convertToTimeFormat(now)
+            timer: this.convertToTimeFormat(delta)
         })
     }
 
-    convertToTimeFormat(second) { // don't forget the second param
-        var minutes = Math.floor(second / 60);
-        var seconds = second - (minutes * 60);
+    convertToSecond(hour, minute, second) {
+        const total = hour * 3600 + minute * 60 + second;
+        return total;
+    }
 
+    convertPrayerTime(time) {
+        var hour = Number(time[0] + time[1]);
+        var minute = Number(time[3] + time[4]);
+        return this.convertToSecond(hour, minute, 0);
+    }
+
+    convertToTimeFormat(second) {
+        var sec_num = parseInt(second); // don't forget the second param
+        var hours = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) { hours = "0" + hours; }
         if (minutes < 10) { minutes = "0" + minutes; }
         if (seconds < 10) { seconds = "0" + seconds; }
-        return '-' + minutes + ':' + seconds;
+        return hours + ':' + minutes + ':' + seconds;
     }
 
     addZero(number) {
@@ -78,11 +135,16 @@ class Timer2 extends Component {
     }
 
     render() {
-        const { text } = this.props;
-        const { timer } = this.state;
+        const { start, end } = this.props;
+        const { nextPrayer, nextPrayerIndex } = this.state;
         return (
             <div>
-                <h1 style={style.h1Style}>{text}</h1> <h2 style={style.h2Style}>{timer}</h2>
+                <PrayerTimes
+                    title={"next : " + nextPrayer[nextPrayerIndex]}
+                    time={this.state.timer}
+                    start={start}
+                    end={end}
+                />
             </div>
         );
     }
