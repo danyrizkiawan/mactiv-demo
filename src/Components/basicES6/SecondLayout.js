@@ -12,7 +12,7 @@ import Timer2 from './Timer2';
 
 var layoutStyle = {
     rootStyle: {
-        padding: '100px 50px',
+        padding: '50px 50px',
         width: '100%',
         height: '100vh',
         background: 'linear-gradient(to bottom, #1E3860, #101F33)',
@@ -53,7 +53,7 @@ var layoutStyle = {
         background: 'white',
         borderTopLeftRadius: '30px',
         borderTopRightRadius: '30px',
-        padding: '15px 0 20px 0',
+        padding: '15px 0 15px 0',
         whiteSpace: 'nowrap',
         fontFamily: 'Merriweather-Bold',
         color: '#18273C',
