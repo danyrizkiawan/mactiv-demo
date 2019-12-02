@@ -11,16 +11,16 @@ class Marquee extends Component {
                 address: '',
                 icon: ''
             },
-            right: ''
+            left: 0 
         }
     }
 
     componentDidMount() {
         this.getMasjid();
-        this.setState({
-            right: '0px'
-        })
-        
+        this.timerID = setInterval(
+            () => this.runningText(),
+            10
+        );
     }
 
     getMasjid() {
@@ -43,20 +43,19 @@ class Marquee extends Component {
     }
 
     runningText() {
-        let right = this.state.right;
-
+        let left = this.state.left;
+        left = left -(1920/2000)
         this.setState({
-            right: right
+            left: left
         })
     }
 
     render() {
-        const { masjid, right } = this.state;
+        const { masjid, left } = this.state;
         return (
             <div style={{
                 //position: 'absolute',
-                transform: 'translateX('+right+')',
-                whiteSpace: 'nowrap',
+                transform: 'translateX('+left+'px)'
             }}>
                 <h1>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda.  |  Selamat datang di {masjid.name}  |  Jaga dan awasi barang bawaan Anda.</h1>
             </div>
