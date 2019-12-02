@@ -3,8 +3,7 @@ import Clock2 from './Clock2';
 import PrayerTimes2 from './PrayerTimes2';
 import UserAvatar from 'react-user-avatar';
 import Marquee from './Marquee';
-// import Marquee from "react-smooth-marquee"
-// import Logo from '../../Images/logo.png';
+import Logo from '../../Images/logo.png';
 
 import {
     Row
@@ -19,16 +18,12 @@ var layoutStyle = {
         background: 'linear-gradient(to bottom, #1E3860, #101F33)',
     },
     topStyle: {
-        // width: '633px',
         marginRight: '77px',
         padding: '0',
         color: 'white',
     },
     rightStyle: {
-        // width: '440px',
-        // height: '20px',
         padding: '0',
-        // marginLeft: '560px',
     },
     h2Style: {
         fontFamily: 'Philosopher-Bold',
@@ -50,7 +45,7 @@ var layoutStyle = {
         padding: '0'
     },
     runningText: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: '0',
         left: '0',
         width: '100%',
@@ -58,9 +53,11 @@ var layoutStyle = {
         background: 'white',
         borderTopLeftRadius: '30px',
         borderTopRightRadius: '30px',
-        padding: '5px 20px',
+        padding: '15px 0 20px 0',
         whiteSpace: 'nowrap',
-        fontSize: '45px',
+        fontFamily: 'Merriweather-Bold',
+        color: '#18273C',
+        fontSize: '40px',
         overflowX: 'hidden',
     },
     lineStyle: {
@@ -81,7 +78,7 @@ class SecondLayout extends Component {
                 <Row>
                     <div className="col-md-1 text-center">
                         <UserAvatar size="110" name="Masjid" color="#FFF"
-                        //src={Logo}
+                        src={Logo}
                         />
                     </div>
                     <div className="col-md-8 text-left">

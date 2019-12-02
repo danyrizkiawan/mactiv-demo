@@ -21,6 +21,15 @@ class Marquee extends Component {
             () => this.runningText(),
             10
         );
+        this.timerID2 = setInterval(
+            () => this.setState({left: 0}),
+            98000
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+        clearInterval(this.timerID2);
     }
 
     getMasjid() {
@@ -54,10 +63,11 @@ class Marquee extends Component {
         const { masjid, left } = this.state;
         return (
             <div style={{
-                //position: 'absolute',
-                transform: 'translateX('+left+'px)'
+                display: 'inline-block',
+                transform: 'translateX('+left+'px)',
             }}>
-                <h1>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda.  |  Selamat datang di {masjid.name}  |  Jaga dan awasi barang bawaan Anda.</h1>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
             </div>
         );
     }

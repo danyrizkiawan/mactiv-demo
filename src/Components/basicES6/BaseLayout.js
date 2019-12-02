@@ -16,7 +16,7 @@ class BaseLayout extends Component {
             },
             sequence: {
                 announce: false,
-                normal: false, // change this value to true, for normal sequence
+                normal: true, // change this value to true, for normal sequence
                 adzan: false
             },
             delay: {
