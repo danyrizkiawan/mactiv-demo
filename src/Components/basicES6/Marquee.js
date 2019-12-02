@@ -23,7 +23,7 @@ class Marquee extends Component {
         );
         this.timerID2 = setInterval(
             () => this.setState({left: 0}),
-            98000
+            135000
         );
     }
 
