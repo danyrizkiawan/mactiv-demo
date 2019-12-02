@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Clock2 from './Clock2';
 import PrayerTimes2 from './PrayerTimes2';
 import UserAvatar from 'react-user-avatar';
+import Marquee from './Marquee';
+// import Marquee from "react-smooth-marquee"
 // import Logo from '../../Images/logo.png';
 
 import {
@@ -11,7 +13,7 @@ import Timer2 from './Timer2';
 
 var layoutStyle = {
     rootStyle: {
-        padding: '100px',
+        padding: '100px 50px',
         width: '100%',
         height: '100vh',
         background: 'linear-gradient(to bottom, #1E3860, #101F33)',
@@ -29,7 +31,7 @@ var layoutStyle = {
         // marginLeft: '560px',
     },
     h2Style: {
-        fontFamily: 'Philoshoper-Bold',
+        fontFamily: 'Philosopher-Bold',
         fontSize: '40px',
         lineHeight: '.8',
         color: 'white',
@@ -37,7 +39,7 @@ var layoutStyle = {
         paddingTop: '0.5rem',
     },
     h1Style: {
-        fontFamily: 'Philoshoper-Bold',
+        fontFamily: 'Philosopher-Bold',
         fontSize: '60px',
         letterSpacing: '0px',
         lineHeight: '1',
@@ -46,6 +48,20 @@ var layoutStyle = {
     },
     prayerStyle: {
         padding: '0'
+    },
+    runningText: {
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '100%',
+        zIndex: '99',
+        background: 'white',
+        borderTopLeftRadius: '30px',
+        borderTopRightRadius: '30px',
+        padding: '5px 20px',
+        whiteSpace: 'nowrap',
+        fontSize: '45px',
+        overflowX: 'hidden',
     },
     lineStyle: {
         border: '1px solid white',
@@ -63,11 +79,6 @@ class SecondLayout extends Component {
         return (
             <div className="" style={layoutStyle.rootStyle}>
                 <Row>
-                    {/* <div
-                        className="my-auto"
-                        style={layoutStyle.topStyle}
-                    > */}
-
                     <div className="col-md-1 text-center">
                         <UserAvatar size="110" name="Masjid" color="#FFF"
                         //src={Logo}
@@ -80,7 +91,6 @@ class SecondLayout extends Component {
                     <div className="col-md-3 pull-right">
                         <Clock2 />
                     </div>
-                    {/* </div> */}
                 </Row>
                 <div>
                     <hr style={layoutStyle.lineStyle}>
@@ -143,6 +153,9 @@ class SecondLayout extends Component {
                         />
                     </div>
                 </Row>
+                <div style={layoutStyle.runningText}>
+                <Marquee />
+                </div>
             </div>
         );
     }
