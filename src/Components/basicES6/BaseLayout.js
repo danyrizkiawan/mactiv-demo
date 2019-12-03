@@ -200,19 +200,23 @@ class BaseLayout extends Component {
 
 
     render() {
-        let message;
+        let message, message2;
         let { prayer, sequence, delay, masjid, nextPrayerIndex } = this.state;
         if (sequence.announce) {
             message = '';
+            message2 = 'd-none';
         } else {
             message = 'd-none';
+            message2 = '';
         }
         return (
             <div>
                 <div className={message}>
                     <SecondAnnounceLayout prayer={prayer} sequence={sequence} delay={delay} masjid={masjid} next={nextPrayerIndex} />
                 </div>
-                <SecondLayout prayer={prayer} masjid={masjid} treshold={delay.treshold} callSequence={this.callSequence} updateIndex={this.updateIndex} />
+                <div className={message2}>
+                    <SecondLayout prayer={prayer} masjid={masjid} treshold={delay.treshold} callSequence={this.callSequence} updateIndex={this.updateIndex} />
+                </div>
             </div>
         )
     }

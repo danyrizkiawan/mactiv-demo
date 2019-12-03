@@ -17,6 +17,7 @@ const style = {
         width: '100%',
         height: '100vh',
         background: 'linear-gradient(to bottom, #1E3860, #101F33)',
+        overflowY: 'hidden'
     },
     boxStyle: {
         height: '150px',
