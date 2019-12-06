@@ -125,6 +125,7 @@ class SecondAnnounceLayout extends Component {
             console.log("End Sequence");
         }, totalDelay);
     }
+    
     render() {
         const { prayer, delay, masjid, next, sequence } = this.props;
         let blank;

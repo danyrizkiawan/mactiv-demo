@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Clock2 from './Clock2';
 import PrayerTimes2 from './PrayerTimes2';
-import UserAvatar from 'react-user-avatar';
+// import UserAvatar from 'react-user-avatar';
 import Marquee from './Marquee';
-import Logo from '../../Images/logo.png';
+import Logo from '../../Images/ybmpln.png';
 
 import {
     Row
@@ -67,6 +67,10 @@ var layoutStyle = {
     font: {
         h1: '180px',
         h2: '120px',
+    },
+    icon: {
+        height: '120px',
+        borderRadius: '20px'
     }
 }
 class SecondLayout extends Component {
@@ -78,13 +82,17 @@ class SecondLayout extends Component {
             <div className="" style={layoutStyle.rootStyle}>
                 <Row>
                     <div className="col-md-1 text-center">
-                        <UserAvatar size="110" name="Masjid" color="#FFF"
+                        {/* <UserAvatar size="110" name="Masjid" color="#FFF"
                         src={Logo}
-                        />
+                        /> */}
+                        <img
+                        src={Logo}
+                        alt="Logo"
+                        style={layoutStyle.icon} />
                     </div>
-                    <div className="col-md-8 text-left">
-                        <h1 style={layoutStyle.h1Style}>{masjid.name}</h1>
-                        <h2 style={layoutStyle.h2Style}>{masjid.address}</h2>
+                    <div className="col-md-8 text-left pl-5">
+                        <h1 className="pl-4" style={layoutStyle.h1Style}>{masjid.name}</h1>
+                        <h2 className="pl-4" style={layoutStyle.h2Style}>{masjid.address}</h2>
                     </div>
                     <div className="col-md-3 pull-right">
                         <Clock2 />

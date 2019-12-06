@@ -66,8 +66,8 @@ class Marquee extends Component {
                 display: 'inline-block',
                 transform: 'translateX('+left+'px)',
             }}>
-                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
-                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Jadwal sholat ini merupakan hibah dari Yayasan Baitul Maal PLN  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Jadwal sholat ini merupakan hibah dari Yayasan Baitul Maal PLN  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
             </div>
         );
     }
