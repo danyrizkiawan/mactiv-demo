@@ -10,7 +10,6 @@ import {
     BinAlert,
     AuratAlert
 } from '../../Images/index';
-import YBM from '../../Images/ybmpln.png';
 
 var announceStyle = {
     rootStyle: {
@@ -39,7 +38,6 @@ var announceStyle = {
 
 const AnnounceText = [
     "Utamakan shalat berjamaah.",
-    "Jadwal sholat ini merupakan hibah dari Yayasan Baitul Maal PLN",
     "Untuk menjaga ketenangan, mohon non-aktifkan HP Anda.",
     "Jaga dan awasi barang bawaan Anda.",
     "Jagalah kebersihan Masjid, buang sampah pada tempatnya.",
@@ -47,11 +45,10 @@ const AnnounceText = [
     "Mohon menggunakan pakaian yang sopan dan menutup aurat.",
     "Dilarang merokok di kawasan Masjid!",
     "Dilarang berbicara ketika khotib sedang berkhutbah.",
-
 ];
+
 const AnnounceIcon = [
     JamaahAlert,
-    YBM,
     PhoneAlert,
     HandBagAlert,
     BinAlert,
@@ -84,7 +81,7 @@ class AnnounceBox extends Component {
     changeAnnounce() {
         let index = this.state.index;
         index = index + 1;
-        if (index === (AnnounceIcon.length-1)) {
+        if (index === (AnnounceIcon.length - 1)) {
             index = 0;
         }
         this.setState({

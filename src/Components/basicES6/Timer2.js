@@ -63,10 +63,13 @@ class Timer2 extends Component {
             prayer: newPrayers
         });
 
-        if (newPrayers[0] !== '0')
+        // Only if prayers exist
+        if (newPrayers[0] !== '0') {
             this.setTimer();
+        }
     }
 
+    // Check Timer
     setTimer() {
         // get state
         var { nextPrayerIndex,
@@ -74,7 +77,7 @@ class Timer2 extends Component {
             prayer
         } = this.state;
 
-        var treshold = this.props.treshold / 1000;
+        var treshold = this.props.treshold[nextPrayerIndex] / 1000;
 
         // calculate delta
         var delta = prayer[nextPrayerIndex] - now;
@@ -89,8 +92,8 @@ class Timer2 extends Component {
         // 4) Y merupakan waktu tunggu sebelum sequence dimulai, dapat diubah sesuai keinginan
         // 5) Uncomment delta --> save untuk refresh web
         //
-        //  delta = delta - 8000; // (a)
-        //  console.log(delta); // (b)
+        delta = delta - 6350; // (a) 
+        console.log(delta); // (b)
         if (delta <= treshold && delta > 0) {
             if (nextPrayerIndex !== 1) {
                 this.props.callSequence(delta);

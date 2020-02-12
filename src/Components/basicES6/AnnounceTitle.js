@@ -30,7 +30,8 @@ class AnnounceTitle extends Component {
                 'DZUHUR',
                 'ASHAR',
                 'MAGHRIB',
-                "ISYA'"
+                "ISYA'",
+                "JUMU'AH",
             ]
         }
     }
@@ -38,19 +39,25 @@ class AnnounceTitle extends Component {
     render() {
         const { index, delay, masjid, next } = this.props;
         const { nextPrayer } = this.state;
+        var np;
+        if (new Date().getDay() === 5 && delay.jumuah.mode) {
+            np = 6;
+        } else {
+            np = next;
+        }
         let content;
         switch (index) {
             case 0:
                 content = <div><h1 style={style.h1Style}>{masjid.name}</h1></div>
                 break;
             case 1:
-                content = <Timer3 text={"NEXT: " + nextPrayer[next]} duration={delay.praAdzan} />
+                content = <Timer3 text={"NEXT: " + nextPrayer[np]} duration={delay.praAdzan[next]} />
                 break;
             case 2:
                 content = <div><h1 style={style.h1Style}>ADZAN</h1></div>
                 break;
             case 3:
-                content = <Timer3 text={"IQAMAH"} duration={delay.praIqamah} />
+                content = <Timer3 text={"IQAMAH"} duration={delay.praIqamah[next]} />
                 break;
             default:
                 break;

@@ -69,20 +69,30 @@ class SecondAnnounceLayout extends Component {
 
     componentDidMount() {
         if (this.props.sequence.adzan === true) {
-            this.startSequence();
+            if (new Date().getDay() === 5 && this.props.delay.jumuah.mode) {
+                console.log('Start Jumuah Sequence');
+                this.startJumuahSequence();
+            } else {
+                this.startSequence();
+            }
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.sequence.adzan !== prevProps.sequence.adzan && this.props.sequence.adzan !== false) {
-            this.startSequence();
+            if (new Date().getDay() === 5 && this.props.delay.jumuah.mode) {
+                console.log('Start Jumuah Sequence');
+                this.startJumuahSequence();
+            } else {
+                this.startSequence();
+            }
         }
     }
 
     startSequence() {
-        let { delay } = this.props;
+        let { delay, next } = this.props;
         let totalDelay = 0;
-        const adzanAlert = new Audio("http://localhost:3000/Audios/adzan.mp3");
+        const adzanAlert = new Audio("http://localhost:3000/Audios/iqamah.mp3");
         const iqamahAlert = new Audio("http://localhost:3000/Audios/iqamah.mp3");
         console.log("Start Timer");
 
@@ -90,7 +100,8 @@ class SecondAnnounceLayout extends Component {
             index: 1
         });
 
-        totalDelay = totalDelay + delay.praAdzan;
+        totalDelay = totalDelay + delay.praAdzan[next];
+        console.log(totalDelay);
 
         setTimeout(() => {
             this.setState({
@@ -101,6 +112,7 @@ class SecondAnnounceLayout extends Component {
         }, totalDelay);
 
         totalDelay = totalDelay + delay.durasiAdzan;
+        console.log(totalDelay);
         setTimeout(() => {
             this.setState({
                 index: 3
@@ -108,7 +120,8 @@ class SecondAnnounceLayout extends Component {
             console.log("Start Timer Iqamah");
         }, totalDelay);
 
-        totalDelay = totalDelay + delay.praIqamah;
+        totalDelay = totalDelay + delay.praIqamah[next];
+        console.log(totalDelay);
         setTimeout(() => {
             this.setState({
                 index: 4
@@ -117,7 +130,8 @@ class SecondAnnounceLayout extends Component {
             console.log("Start Shalat");
         }, totalDelay);
 
-        totalDelay = totalDelay + delay.waktuSholat;
+        totalDelay = totalDelay + delay.waktuSholat[next];
+        console.log(totalDelay);
         setTimeout(() => {
             this.setState({
                 index: 0
@@ -125,7 +139,57 @@ class SecondAnnounceLayout extends Component {
             console.log("End Sequence");
         }, totalDelay);
     }
-    
+    startJumuahSequence() {
+        let { delay, next } = this.props;
+        let totalDelay = 0;
+        const adzanAlert = new Audio("http://localhost:3000/Audios/iqamah.mp3");
+        const iqamahAlert = new Audio("http://localhost:3000/Audios/iqamah.mp3");
+        console.log("Start Timer");
+
+        this.setState({
+            index: 1
+        });
+
+        totalDelay = totalDelay + delay.praAdzan[next];
+        console.log(totalDelay);
+
+        setTimeout(() => {
+            this.setState({
+                index: 2
+            });
+            adzanAlert.play();
+            console.log("Start Adzan");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.durasiAdzan;
+        console.log(totalDelay);
+        setTimeout(() => {
+            this.setState({
+                index: 4 // Blank Screen
+            });
+            console.log("Start Khotbah");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.jumuah.delay[0] - delay.durasiAdzan;
+        console.log(totalDelay);
+        setTimeout(() => {
+            this.setState({
+                index: 4
+            });
+            iqamahAlert.play();
+            console.log("Start Shalat");
+        }, totalDelay);
+
+        totalDelay = totalDelay + delay.jumuah.delay[1];;
+        console.log(totalDelay);
+        setTimeout(() => {
+            this.setState({
+                index: 0
+            });
+            console.log("End Sequence");
+        }, totalDelay);
+    }
+
     render() {
         const { prayer, delay, masjid, next, sequence } = this.props;
         let blank;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Clock2 from './Clock2';
 import PrayerTimes2 from './PrayerTimes2';
-// import UserAvatar from 'react-user-avatar';
+import UserAvatar from 'react-user-avatar';
 import Marquee from './Marquee';
-import Logo from '../../Images/ybmpln.png';
+import Logo from '../../Images/logo.png';
 
 import {
     Row
@@ -75,24 +75,19 @@ var layoutStyle = {
 }
 class SecondLayout extends Component {
 
-
     render() {
         const { prayer, masjid } = this.props;
         return (
             <div className="" style={layoutStyle.rootStyle}>
                 <Row>
-                    <div className="col-md-1 text-center">
-                        {/* <UserAvatar size="110" name="Masjid" color="#FFF"
-                        src={Logo}
-                        /> */}
-                        <img
-                        src={Logo}
-                        alt="Logo"
-                        style={layoutStyle.icon} />
+                    <div className="col-md-1 text-center pl-5">
+                        <UserAvatar size="110" name="Masjid" color="#FFF"
+                            src={Logo}
+                        />
                     </div>
-                    <div className="col-md-8 text-left pl-5">
+                    <div className="col-md-8 text-left">
                         <h1 className="pl-4" style={layoutStyle.h1Style}>{masjid.name}</h1>
-                        <h2 className="pl-4" style={layoutStyle.h2Style}>{masjid.address}</h2>
+                        <h2 className="pl-4" style={layoutStyle.h2Style}>{masjid.address}, {masjid.urban}, {masjid.subdistrict}, {masjid.city}</h2>
                     </div>
                     <div className="col-md-3 pull-right">
                         <Clock2 />
@@ -133,7 +128,6 @@ class SecondLayout extends Component {
                             size={layoutStyle.font}
                         />
                     </div>
-
                     <div className="d-none">
                         <Timer2
                             prayer={prayer}
@@ -160,7 +154,7 @@ class SecondLayout extends Component {
                     </div>
                 </Row>
                 <div style={layoutStyle.runningText}>
-                <Marquee />
+                    <Marquee />
                 </div>
             </div>
         );

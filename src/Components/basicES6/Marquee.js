@@ -9,9 +9,8 @@ class Marquee extends Component {
             masjid: {
                 name: '',
                 address: '',
-                icon: ''
             },
-            left: 0 
+            left: 0
         }
     }
 
@@ -22,8 +21,8 @@ class Marquee extends Component {
             10
         );
         this.timerID2 = setInterval(
-            () => this.setState({left: 0}),
-            135000
+            () => this.setState({ left: 0 }),
+            135000 // durasi jadwal + durasi pengumuman
         );
     }
 
@@ -40,23 +39,21 @@ class Marquee extends Component {
                     const result = res.data;
                     this.setState({
                         masjid: {
-                            name: result.nama,
-                            address: result.alamat,
-                            icon: result.icon,
+                            name: result.masjidName,
                         },
                     })
                 }
             }).catch(err => {
                 console.log(err);
-            })
+            });
     }
 
     runningText() {
         let left = this.state.left;
-        left = left -(1920/2000)
+        left = left - (1920 / 2000)
         this.setState({
             left: left
-        })
+        });
     }
 
     render() {
@@ -64,10 +61,10 @@ class Marquee extends Component {
         return (
             <div style={{
                 display: 'inline-block',
-                transform: 'translateX('+left+'px)',
+                transform: 'translateX(' + left + 'px)',
             }}>
-                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Jadwal sholat ini merupakan hibah dari Yayasan Baitul Maal PLN  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
-                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Jadwal sholat ini merupakan hibah dari Yayasan Baitul Maal PLN  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
+                <span>Selamat datang di {masjid.name}  |  Untuk menjaga ketenangan, mohon non-aktifkan HP Anda  |  Jaga dan awasi barang bawaan Anda  |  Selamat datang di {masjid.name}  |  Utamakan shalat berjamaah  |  Jagalah kebersihan Masjid, buang sampah pada tempatnya  |  Selamat datang di {masjid.name}  |  Mohon menggunakan pakaian yang sopan dan menutup aurat  |  Dilarang merokok di dalam Masjid  |  Jaga dan awasi anak-anak Anda  |  </span>
             </div>
         );
     }
