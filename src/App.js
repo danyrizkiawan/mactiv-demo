@@ -10,19 +10,18 @@ class App extends Component {
         super(props);
 
         this.state = {
-            isActivated: true,
-            serialNumber: ['CSyn5tSKH5HMLH8bQ0FS', 'XLBvtdftWH7oGwGNmAjs', 'ChXiGf5Y6LCMG67lNfwT'],
-            key: ['qGbfNNmNukoibRyjukXEr', '8pv0gcip20xUfvZf1n55', 'dB7y8XPlYNJUhSJ51w0q']
+            isActivated: false,
+            serialNumber: ['AL20-0001-ABCD', 'XLBvtdftWH7oGwGNmAjs', 'ChXiGf5Y6LCMG67lNfwT'],
         }
 
     }
 
     componentDidMount() {
-        // this.timerID = setInterval(() => {
-        //     if (!this.state.isActivated)
-        //         this.checkStatus();
-        // }
-        //     , 5000);
+        this.checkStatus();
+        this.timerID = setInterval(() => {
+            if (!this.state.isActivated)
+                this.checkStatus();
+        }, 5000);
     }
 
     componentWillUnmount() {
@@ -30,13 +29,9 @@ class App extends Component {
     }
 
     checkStatus() {
-        const serialNumber = this.state.serialNumber;
-        Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/sync', {
-            serialNumber: serialNumber[0],
-            force: 1
-        }).then(res => {
-            console.log(res);
-            if (res.data.masjidId) {
+        Axios.get('http://localhost:5000/getDataMasjid').then(res => {
+            console.log(res.status);
+            if (res.status === 200) {
                 this.setState({ isActivated: true })
             }
         }).catch(err => {
@@ -45,14 +40,14 @@ class App extends Component {
     }
 
     render() {
-        const { isActivated, serialNumber, key } = this.state;
+        const { isActivated, serialNumber } = this.state;
         return (
             <div>
                 {isActivated
                     ? <BaseLayout serialNumber={
                         serialNumber[0]
                     }
-                    /> : <Activation serialNumber={key[0]} />
+                    /> : <Activation serialNumber={serialNumber[0]} />
                 }
             </div>
         )

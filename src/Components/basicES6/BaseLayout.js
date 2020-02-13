@@ -12,7 +12,7 @@ class BaseLayout extends Component {
             masjid: {
                 name: '',
                 address: '',
-                icon: '',
+                icon: null,
                 urban: '',
                 subdistrict: '',
                 city: '',

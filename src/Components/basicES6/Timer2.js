@@ -92,8 +92,8 @@ class Timer2 extends Component {
         // 4) Y merupakan waktu tunggu sebelum sequence dimulai, dapat diubah sesuai keinginan
         // 5) Uncomment delta --> save untuk refresh web
         //
-        delta = delta - 6350; // (a) 
-        console.log(delta); // (b)
+        // delta = delta - 6350; // (a) 
+        // console.log(delta); // (b)
         if (delta <= treshold && delta > 0) {
             if (nextPrayerIndex !== 1) {
                 this.props.callSequence(delta);

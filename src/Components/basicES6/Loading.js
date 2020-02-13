@@ -27,7 +27,7 @@ export default class Loading extends React.Component {
     getPrayerTime() {
         const serialNumber = this.props.serialNumber;
         const date = new Date();
-        Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/getPrayerTime',
+        Axios.post('https://localhost:5000/getPrayerTime',
             {
                 serialNumber,
                 date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay()

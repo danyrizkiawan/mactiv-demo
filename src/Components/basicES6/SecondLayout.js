@@ -73,7 +73,33 @@ var layoutStyle = {
         borderRadius: '20px'
     }
 }
+
+
 class SecondLayout extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            logo: Logo
+        };
+    }
+
+
+    componentDidMount() {
+        if (this.props.masjid.icon != null) {
+            this.setState({
+                logo: 'http://localhost:5000/getLogo'
+            });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.masjid.icon !== prevProps.masjid.icon && this.props.masjid.icon !== null) {
+            this.setState({
+                logo: 'http://localhost:5000/getLogo'
+            });
+        }
+    }
 
     render() {
         const { prayer, masjid } = this.props;
@@ -82,7 +108,7 @@ class SecondLayout extends Component {
                 <Row>
                     <div className="col-md-1 text-center pl-5">
                         <UserAvatar size="110" name="Masjid" color="#FFF"
-                            src={Logo}
+                            src={this.state.logo}
                         />
                     </div>
                     <div className="col-md-8 text-left">

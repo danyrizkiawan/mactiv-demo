@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Background from '../../Images/bg.png';
+import QR from '../../Images/qr.png';
 
 const style = {
     rootStyle: {
@@ -19,7 +20,7 @@ const style = {
         boxShadow: '5px 5px 20px -10px rgba(0,0,0,0.75)'
     },
     h1Style: {
-        fontSize: '10rem',
+        fontSize: '8rem',
         color: 'white',
         margin: '0',
         textShadow: '4px 4px 15px rgba(0, 0, 0, 0.5)',
@@ -47,7 +48,10 @@ class Activation extends Component {
                 >
                     Activate Mactiv Box
                 </h1>
-                <div
+                <div className="my-auto">
+                    <img src={QR}></img>
+                </div>
+                {/* <div
                     className="text-center my-auto"
                     style={style.boxStyle}>
                     <h2
@@ -55,7 +59,7 @@ class Activation extends Component {
                     >
                         {serialNumber}
                     </h2>
-                </div>
+                </div> */}
             </div>
         );
     }
