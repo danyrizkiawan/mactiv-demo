@@ -209,7 +209,7 @@ class BaseLayout extends Component {
     callSequence = (delta) => {
         let { sequence, delay, nextPrayerIndex } = this.state;
         var ptDuration;
-        if (new Date().getDay() === 5 && delay.jumuah.mode) {
+        if (new Date().getDay() === 5 && nextPrayerIndex === 2 && delay.jumuah.mode) {
             ptDuration = delay.praAdzan[nextPrayerIndex] + delay.durasiAdzan + delay.jumuah.delay[0] + delay.jumuah.delay[1];
         } else {
             ptDuration = delay.praAdzan[nextPrayerIndex] + delay.durasiAdzan + delay.praIqamah[nextPrayerIndex] + delay.waktuSholat[nextPrayerIndex];
@@ -224,13 +224,15 @@ class BaseLayout extends Component {
 
             this.setState({
                 delay: {
-                    pengumuman: delay.pengumuman,
+                    jadwal: delay.jadwal,
                     normal: delay.normal,
                     treshold: delay.treshold,
                     praAdzan: newPraAdzan,
                     durasiAdzan: delay.durasiAdzan,
                     praIqamah: delay.praIqamah,
                     waktuSholat: delay.waktuSholat,
+                    jumuah: delay.jumuah,
+                    alarm: delay.alarm,
                 },
             })
             this.setState({

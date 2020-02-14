@@ -69,7 +69,7 @@ class SecondAnnounceLayout extends Component {
 
     componentDidMount() {
         if (this.props.sequence.adzan === true) {
-            if (new Date().getDay() === 5 && this.props.delay.jumuah.mode) {
+            if (new Date().getDay() === 5 && this.props.next === 2 && this.props.delay.jumuah.mode) {
                 console.log('Start Jumuah Sequence');
                 this.startJumuahSequence();
             } else {
@@ -80,7 +80,7 @@ class SecondAnnounceLayout extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.sequence.adzan !== prevProps.sequence.adzan && this.props.sequence.adzan !== false) {
-            if (new Date().getDay() === 5 && this.props.delay.jumuah.mode) {
+            if (new Date().getDay() === 5 && this.props.next === 2 && this.props.delay.jumuah.mode) {
                 console.log('Start Jumuah Sequence');
                 this.startJumuahSequence();
             } else {

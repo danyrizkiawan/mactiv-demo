@@ -39,8 +39,9 @@ class AnnounceTitle extends Component {
     render() {
         const { index, delay, masjid, next } = this.props;
         const { nextPrayer } = this.state;
+        // console.log(delay);
         var np;
-        if (new Date().getDay() === 5 && delay.jumuah.mode) {
+        if (new Date().getDay() === 5 && next === 2 && delay.jumuah.mode) {
             np = 6;
         } else {
             np = next;

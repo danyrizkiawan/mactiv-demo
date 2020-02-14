@@ -49,7 +49,7 @@ class Activation extends Component {
                     Activate Mactiv Box
                 </h1>
                 <div className="my-auto">
-                    <img src={QR}></img>
+                    <img src={QR} alt={serialNumber}></img>
                 </div>
                 {/* <div
                     className="text-center my-auto"
